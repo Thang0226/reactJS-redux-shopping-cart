@@ -1,10 +1,14 @@
 import React from "react";
 import { getVisibleProducts } from "../reducers/products";
 import ProductItem from "./ProductItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../actions";
 
 const ProductsList = () => {
   const products = useSelector((state) => getVisibleProducts(state.products));
+
+  const dispatch = useDispatch();
+  const dispatchAddtoCart = (id) => dispatch(addToCart(id));
 
   return (
     <div>
@@ -13,7 +17,7 @@ const ProductsList = () => {
         <ProductItem
           key={product.id}
           product={product}
-          onAddToCartClicked={() => {}}
+          onAddToCartClicked={() => dispatchAddtoCart(product.id)}
         />
       ))}
     </div>
